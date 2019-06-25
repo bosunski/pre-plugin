@@ -96,3 +96,23 @@ if (!function_exists("\\Pre\\Plugin\\removeCompiler")) {
         return $instance->removeCompiler($compiler);
     }
 }
+
+if(!defined('PREPROCESS_OUTPUT_DIRECTORY')) {
+    define('PREPROCESS_OUTPUT_DIRECTORY', '.pre');
+}
+
+if (!function_exists("\\Pre\\Plugin\\createOutputPath")) {
+    function createOutputPath($php) {
+        $pathInfo = pathinfo($php);
+
+        $basePath = base();
+
+        $fullDir = $basePath . DIRECTORY_SEPARATOR . PREPROCESS_OUTPUT_DIRECTORY . explode($basePath, $pathInfo['dirname'])[1];
+
+        if (!is_dir($fullDir)) {
+            mkdir($fullDir, 0777, true);
+        }
+
+        return $fullDir . DIRECTORY_SEPARATOR . $pathInfo['basename'];
+    }
+}

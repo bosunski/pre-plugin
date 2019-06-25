@@ -37,7 +37,7 @@ spl_autoload_register(
 
                 process($pre, $php);
 
-                require_once $php;
+                require_once createOutputPath($php);
             }
         }
     },

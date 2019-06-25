@@ -96,7 +96,7 @@ class Parser
             $this->compile($from, $to);
         }
 
-        return require $to;
+        return require createOutputPath($to);
     }
 
     private function isProcessed($from, $to)
@@ -120,7 +120,7 @@ class Parser
                 $code = str_replace("<?php", "<?php\n\n{$comment}", $code);
             }
 
-            file_put_contents($to, $code);
+            file_put_contents(createOutputPath($to), $code);
         }
     }
 
